@@ -59,19 +59,37 @@ local function mainLoop()
         humanoidRootPart.CFrame = CFrame.new(-3184, 34, 3234)
         wait(1.5)
 
-        local items = {
-            {"Pickaxe", 1},
-            {"Iphone", 1},
-            {"Basket", 1},
-            {"Jackhammer", 1},
-            {"Tea", 10}
-        }
+        local args = {
+    [1] = "Pickaxe",
+    [2] = 1
+}
 
-        for _, item in ipairs(items) do
-            args = {item[1], item[2]}
-            game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Shop"):FireServer(unpack(args))
-            wait(1)
-        end
+game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Shop"):FireServer(unpack(args))
+local args = {
+    [1] = "Sickle",
+    [2] = 1
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Shop"):FireServer(unpack(args))
+local args = {
+    [1] = "Axe",
+    [2] = 1
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Shop"):FireServer(unpack(args))
+local args = {
+    [1] = "Jackhammer",
+    [2] = 1
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Shop"):FireServer(unpack(args))
+local args = {
+    [1] = "Cleaver",
+    [2] = 1
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Shop"):FireServer(unpack(args))
+
 
         humanoidRootPart.CFrame = CFrame.new(4855, 34, 897)
         wait(0.5)
