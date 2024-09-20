@@ -123,8 +123,8 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Shop")
             {name = "Strawberry", amount = 60, cframe = CFrame.new(3409, 35, 2087), flag = "noETeleported"},
             {name = "Apple", amount = 60, cframe = CFrame.new(2379, 37, 3164), flag = "ABCD"},
             {name = "Orange", amount = 60, cframe = CFrame.new(4174, 34, 3484), flag = "ABCDF"},
-            {name = "Meat", amount = 60, cframe = CFrame.new(2061, 21, -406), flag = "ABCDFGH"},
-            {name = "Wood", amount = 60, cframe = CFrame.new(-4784, 33, 1391), flag = "ABCDFG"},
+            {name = "Meat", amount = 60, cframe = CFrame.new(-4784, 33, 1391), flag = "ABCDFGH"},
+            {name = "Wood", amount = 60, cframe = CFrame.new(2061, 21, -406), flag = "ABCDFG"},
             {name = "Rice", amount = 60, cframe = CFrame.new(-2533, 13, 5159), flag = "ABCDFGO"},
             {name = "Oil", amount = 60, cframe = CFrame.new(857, 35, 3338), flag = "ABCDFGOP"}
         }
