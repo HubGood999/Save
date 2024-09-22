@@ -11,12 +11,50 @@ local CopyButton = Section:NewButton("Copy discord", "discord water hubd", funct
     print("คัดลอกลิงก์ Discord แล้ว!")
 end)
 
+local TabFarm = Window:NewTab("main")
+local SectionFarmNormal = TabFarm:NewSection("main help")
+
+
+
 -- แท็บ Farm Normal
 local TabFarm = Window:NewTab("Farm Normal")
 local SectionFarmNormal = TabFarm:NewSection("Farm Normal")
-SectionFarmNormal:NewButton("", "ButtonInfo", function()
-    print("Clicked")
+
+-- สร้างรายการตัวเลือก
+local farmLocations = {
+    ["Farm Stone"] = CFrame.new(-4539, 38, -227),
+    ["Farm Cabbage"] = CFrame.new(4855, 34, 897),
+    ["Farm Banana"] = CFrame.new(-2960, 33, 92),
+    ["Farm Strawberry"] = CFrame.new(3426, 33, -227),
+    ["Farm Apple"] = CFrame.new(3409, 35, 2087),
+    ["Farm Orange"] = CFrame.new(2379, 37, 3164),
+    ["Farm Meat"] = CFrame.new(4174, 34, 3484),
+    ["Farm Wood"] = CFrame.new(-4784, 33, 1391),
+    ["Farm Rice"] = CFrame.new(2061, 21, -406),
+    ["Farm Oil"] = CFrame.new(-2533, 13, 5159)
+}
+
+local selectedFarm = nil  -- ตัวแปรเก็บฟาร์มที่เลือก
+
+-- สร้าง Dropdown เพื่อเลือกสิ่งที่ต้องการฟาร์ม
+SectionFarmNormal:NewDropdown("Select Farm", "Choose a farming location", {"Farm Stone", "Farm Cabbage", "Farm Banana", "Farm Strawberry", "Farm Apple", "Farm Orange", "Farm Meat", "Farm Wood", "Farm Rice", "Farm Oil"}, function(option)
+    selectedFarm = option  -- เก็บค่าที่เลือกไว้
 end)
+
+-- สร้างปุ่มสำหรับกดไปยังตำแหน่งที่เลือก
+SectionFarmNormal:NewButton("Confirm Farm", "Go to selected farm location", function()
+    if selectedFarm then  -- ตรวจสอบว่ามีการเลือกฟาร์มแล้วหรือยัง
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+        -- ย้ายไปยังตำแหน่งฟาร์มที่เลือก
+        humanoidRootPart.CFrame = farmLocations[selectedFarm]
+    else
+        print("Please select a farm location first!")  -- แสดงข้อความหากยังไม่ได้เลือกฟาร์ม
+    end
+end)
+
 
 -- แท็บ Farm Kaitun
 local TabFarmKaitun = Window:NewTab("Farm kaitun")
