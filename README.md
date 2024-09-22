@@ -133,17 +133,19 @@ end)
 
 -- ปุ่มสำหรับเดินทะลุ
 SectionHelper:NewButton("เดินทะลุ", "เดินทะลุสิ่งกีดขวาง", function()
-    if selectedPlayer then
-        local player = game.Players:FindFirstChild(selectedPlayer)
-        if player then
-            setHitboxMagnitude(player, hitboxMagnitude) -- อัพเดทระยะการตี
-            setWalkSpeed(player, walkSpeed) -- อัพเดทความเร็วในการเดิน
-            local humanoidRootPart = player.Character.HumanoidRootPart
-            humanoidRootPart.CanCollide = false
-            wait(5) -- เดินทะลุเป็นเวลา 5 วินาที
-            humanoidRootPart.CanCollide = true
+    local RunService = game:GetService("RunService")
+local character = game.Players.LocalPlayer.Character
+
+-- ปิดการชนของทุกชิ้นส่วนของตัวละคร
+local function disableCollisions()
+    for _, part in pairs(character:GetChildren()) do
+        if part:IsA("BasePart") then
+            part.CanCollide = false
         end
-    else
-        print("ยังไม่ได้เลือกผู้เล่น")
     end
+end
+
+-- รันฟังก์ชันทุกเฟรม
+RunService.RenderStepped:Connect(disableCollisions)
+
 end)
