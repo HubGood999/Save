@@ -58,6 +58,12 @@ local function mainLoop()
         wait(1.5)
         humanoidRootPart.CFrame = CFrame.new(-3184, 34, 3234)
         wait(1.5)
+        local args = {
+    [1] = "Tea",
+    [2] = 10
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Shop"):FireServer(unpack(args))
 local args = {
     [1] = "Water",
     [2] = 10
