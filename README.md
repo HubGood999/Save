@@ -603,6 +603,43 @@ if tonumber(ezAmount) and tonumber(ezAmount) > 0 then
         print("กรุณากรอกจำนวนเงินที่ถูกต้อง (ต้องมากกว่า 0)")
     end
 end)
+SectionFarmKaitun:NewButton("eat auto every", "ButtonInfo", function()
+-- ดึงข้อมูลผู้เล่นที่รันสคริปต์
+local player = game:GetService("Players").LocalPlayer
+
+while true do
+    wait(10)  -- รอ 10 วินาที
+
+    -- เช็คสถานะ Shield และใช้งาน Tea
+    if player and player.Status and player.Status.Shield and player.Status.Shield.Value > 50 then
+        local args = {
+            [1] = "Use",
+            [2] = "Tea"
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Inventory"):FireServer(unpack(args))
+    end
+
+    -- เช็คสถานะ Thirsty และใช้งาน Water
+    if player and player.Status and player.Status.Thirsty and player.Status.Thirsty.Value < 50 then
+        local args = {
+            [1] = "Use",
+            [2] = "Water"
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Inventory"):FireServer(unpack(args))
+    end
+
+    -- เช็คสถานะ Hunger และใช้งาน Bread
+    if player and player.Status and player.Status.Hunger and player.Status.Hunger.Value < 50 then
+        local args = {
+            [1] = "Use",
+            [2] = "Bread"
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Inventory"):FireServer(unpack(args))
+    end
+end
+
+end)
+
 -- เพิ่มการตั้งค่าระยะการตีและความเร็วในการเดินใน Helper
 local hitboxMagnitude = 0 -- ระยะการตีเริ่มต้น
 local walkSpeed = 16 -- ความเร็วในการเดินเริ่มต้น
