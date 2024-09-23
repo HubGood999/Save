@@ -457,7 +457,7 @@ while true do
         }
         game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Inventory"):FireServer(unpack(args))
     end
-end
+end)
 
 
 -- แท็บ Helper สำหรับเลือกผู้เล่นและฝากเงิน
