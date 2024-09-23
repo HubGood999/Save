@@ -425,8 +425,6 @@ local args = {
     end
 end
 
--- เรียกใช้ฟังก์ชันหลัก
-mainLoop()
 -- ดึงข้อมูลผู้เล่นที่รันสคริปต์
 local player = game:GetService("Players").LocalPlayer
 
@@ -460,6 +458,7 @@ while true do
         game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Inventory"):FireServer(unpack(args))
     end
 end
+
 
 -- แท็บ Helper สำหรับเลือกผู้เล่นและฝากเงิน
 local TabHelper = Window:NewTab("Helper")
