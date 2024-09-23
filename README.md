@@ -20,6 +20,85 @@ local SectionFarmNormal = TabFarm:NewSection("main help")
 local TabFarm = Window:NewTab("Farm Normal")
 local SectionFarmNormal = TabFarm:NewSection("Farm Normal")
 
+SectionFarmNormal:NewButton("Farm Oil", "Farm Oil", function()
+    local hitboxMagnitude = 500 -- ระยะการตีที่ต้องการ
+local hasTeleported = false -- ตัวแปรเพื่อควบคุมการวาบ
+
+-- ฟังก์ชันในการขยายระยะการตี
+local function setHitboxMagnitude(player)
+    if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+        local humanoidRootPart = player.Character.HumanoidRootPart
+        local originalSize = humanoidRootPart.Size
+        humanoidRootPart.Size = Vector3.new(hitboxMagnitude, originalSize.Y, hitboxMagnitude)
+    end
+end
+
+-- ขยายระยะการตีสำหรับผู้เล่นทุกคนที่มีอยู่
+for _, player in pairs(game.Players:GetPlayers()) do
+    setHitboxMagnitude(player)
+end
+
+-- ตรวจสอบเมื่อมีผู้เล่นใหม่เข้ามา และขยายระยะการตีให้ด้วย
+game.Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function()
+        setHitboxMagnitude(player)
+    end)
+end)
+
+-- ฟังก์ชันหลักที่จะรันทุก 2 วินาที
+while true do
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+    -- เช็คว่าต้องวาบหรือไม่
+    if not hasTeleported then
+        humanoidRootPart.CFrame = CFrame.new(-3184, 34, 3234)
+        wait(2) -- รอ 2 วินาทีที่ตำแหน่งนี้
+
+        -- ทำการซื้อสินค้า
+        local items = {
+            {"Tea", 10},
+            {"Water", 10},
+            {"Bread", 10},
+            {"Pickaxe", 1},
+            {"Sickle", 1},
+            {"Axe", 1},
+            {"Jackhammer", 1},
+            {"Cleaver", 1},
+            {"Basket", 1}
+        }
+
+        for _, item in pairs(items) do
+            local args = {
+                [1] = item[1],
+                [2] = item[2]
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Shop"):FireServer(unpack(args))
+        end
+
+        hasTeleported = true -- ตั้งค่าว่าวาบแล้ว
+    end
+
+    humanoidRootPart.CFrame = CFrame.new(-2533, 13, 5159)
+
+    local oilAmount = player.Inventory:FindFirstChild("Oil")
+    if oilAmount and oilAmount.Value >= 60 then
+        local args = {
+            [1] = "Oil",
+            [2] = "60"
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("WorldMarket_Remotes"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+
+        -- หลังจากขายน้ำมัน ให้กลับไปวาบใหม่
+        hasTeleported = false -- รีเซ็ตตัวแปรเพื่อให้วาบใหม่ในรอบถัดไป
+    end
+
+    wait(2) -- รอ 2 วินาที
+end
+
+end)
+
 -- สร้างรายการตัวเลือก
 local farmLocations = {
     ["Farm Stone"] = CFrame.new(-4539, 38, -227),
