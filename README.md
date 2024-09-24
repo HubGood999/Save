@@ -143,6 +143,8 @@ SectionFarmKaitun:NewButton("โชว์เงิน", "ButtonInfo", function()
     local ScreenGui = Instance.new("ScreenGui")
 local Rectangle = Instance.new("Frame")
 local MoneyLabel = Instance.new("TextLabel")
+local UserIdLabel = Instance.new("TextLabel")
+local BankLabel = Instance.new("TextLabel") -- Label สำหรับเงินในธนาคาร
 local CloseButton = Instance.new("TextButton")
 
 -- ตั้งค่า ScreenGui
@@ -151,38 +153,73 @@ ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
 -- ตั้งค่า Rectangle
 Rectangle.Name = "MyRectangle"
-Rectangle.Size = UDim2.new(0, 200, 0, 100) -- ขนาดของสี่เหลี่ยม (200x100)
-Rectangle.Position = UDim2.new(0, 0, 0.5, -50) -- ตำแหน่งกลางแนวตั้ง
+Rectangle.Size = UDim2.new(0, 200, 0, 200) -- ขนาดของสี่เหลี่ยม (200x200)
+Rectangle.Position = UDim2.new(0, 0, 0.5, -100) -- ตำแหน่งกลางแนวตั้ง
 Rectangle.BackgroundColor3 = Color3.fromRGB(0, 170, 255) -- สีของสี่เหลี่ยม
 Rectangle.Parent = ScreenGui
 
 -- ตั้งค่า MoneyLabel
 MoneyLabel.Name = "MoneyLabel"
-MoneyLabel.Size = UDim2.new(1, 0, 1, 0) -- ขนาดเต็มของสีเหลี่ยม
+MoneyLabel.Size = UDim2.new(1, 0, 0, 40) -- ขนาดของ MoneyLabel
 MoneyLabel.BackgroundTransparency = 1 -- ทำให้พื้นหลังโปร่งใส
 MoneyLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- สีข้อความเป็นสีขาว
 MoneyLabel.Font = Enum.Font.SourceSans
 MoneyLabel.TextSize = 24 -- ขนาดข้อความ
+MoneyLabel.Position = UDim2.new(0, 0, 0, 10) -- ตำแหน่งภายในสีเหลี่ยม
 MoneyLabel.Parent = Rectangle
+
+-- ตั้งค่า UserIdLabel
+UserIdLabel.Name = "UserIdLabel"
+UserIdLabel.Size = UDim2.new(1, 0, 0, 40) -- ขนาดของ UserIdLabel
+UserIdLabel.BackgroundTransparency = 1 -- ทำให้พื้นหลังโปร่งใส
+UserIdLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- สีข้อความเป็นสีขาว
+UserIdLabel.Font = Enum.Font.SourceSans
+UserIdLabel.TextSize = 24 -- ขนาดข้อความ
+UserIdLabel.Position = UDim2.new(0, 0, 0, 50) -- ตำแหน่งภายในสีเหลี่ยม
+UserIdLabel.Parent = Rectangle
+
+-- ตั้งค่า BankLabel
+BankLabel.Name = "BankLabel"
+BankLabel.Size = UDim2.new(1, 0, 0, 40) -- ขนาดของ BankLabel
+BankLabel.BackgroundTransparency = 1 -- ทำให้พื้นหลังโปร่งใส
+BankLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- สีข้อความเป็นสีขาว
+BankLabel.Font = Enum.Font.SourceSans
+BankLabel.TextSize = 24 -- ขนาดข้อความ
+BankLabel.Position = UDim2.new(0, 0, 0, 90) -- ตำแหน่งภายในสีเหลี่ยม
+BankLabel.Parent = Rectangle
 
 -- ตั้งค่า CloseButton
 CloseButton.Name = "CloseButton"
 CloseButton.Size = UDim2.new(0, 100, 0, 30) -- ขนาดของปุ่ม
-CloseButton.Position = UDim2.new(0.5, -50, 0, 70) -- ตำแหน่งภายในสีเหลี่ยม
+CloseButton.Position = UDim2.new(0.5, -50, 0, 140) -- ตำแหน่งภายในสีเหลี่ยม
 CloseButton.Text = "ปิด" -- ข้อความบนปุ่ม
 CloseButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- สีพื้นหลังของปุ่ม
 CloseButton.Parent = Rectangle
 
--- ฟังก์ชันสำหรับอัปเดตจำนวนเงิน
-local function updateMoney()
+-- ฟังก์ชันสำหรับอัปเดตจำนวนเงิน, UserId, และเงินในธนาคาร
+local function updateInfo()
     while true do
         local player = game.Players.LocalPlayer -- ใช้ผู้เล่นที่รันสคริปต์
+
+        -- อัปเดตจำนวนเงิน
         local money = player.Inventory:FindFirstChild("Money")
         if money then
             MoneyLabel.Text = "เงิน: " .. tostring(money.Value) -- แสดงจำนวนเงิน
         else
             MoneyLabel.Text = "ไม่พบข้อมูลเงิน"
         end
+        
+        -- แสดง UserId
+        UserIdLabel.Text = "เบอร์: " .. tostring(player.UserId) -- แสดง UserId ของผู้เล่น
+
+        -- อัปเดตเงินในธนาคาร
+        local bank = player:FindFirstChild("Bank"):FindFirstChild("Bank") -- ค้นหาเงินในธนาคารของผู้เล่นที่รันสคริปต์
+        if bank then
+            BankLabel.Text = "เงินในธนาคาร: " .. tostring(bank.Value) -- แสดงเงินในธนาคาร
+        else
+            BankLabel.Text = "ไม่พบข้อมูลเงินในธนาคาร"
+        end
+        
         wait(2) -- หยุด 2 วินาทีก่อนที่จะอัปเดตอีกครั้ง
     end
 end
@@ -192,8 +229,8 @@ CloseButton.MouseButton1Click:Connect(function()
     ScreenGui:Destroy() -- ปิด UI โดยการลบ ScreenGui
 end)
 
--- เรียกใช้ฟังก์ชันเพื่อแสดงจำนวนเงิน
-updateMoney()
+-- เรียกใช้ฟังก์ชันเพื่อแสดงข้อมูล
+updateInfo()
 
 end)
 
