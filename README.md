@@ -138,6 +138,65 @@ end)
 -- แท็บ Farm Kaitun
 local TabFarmKaitun = Window:NewTab("Farm kaitun")
 local SectionFarmKaitun = TabFarmKaitun:NewSection("Farm kaitun")
+
+SectionFarmKaitun:NewButton("โชว์เงิน", "ButtonInfo", function()
+    local ScreenGui = Instance.new("ScreenGui")
+local Rectangle = Instance.new("Frame")
+local MoneyLabel = Instance.new("TextLabel")
+local CloseButton = Instance.new("TextButton")
+
+-- ตั้งค่า ScreenGui
+ScreenGui.Name = "MyMoneyScreenGui"
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- ตั้งค่า Rectangle
+Rectangle.Name = "MyRectangle"
+Rectangle.Size = UDim2.new(0, 200, 0, 100) -- ขนาดของสี่เหลี่ยม (200x100)
+Rectangle.Position = UDim2.new(0, 0, 0.5, -50) -- ตำแหน่งกลางแนวตั้ง
+Rectangle.BackgroundColor3 = Color3.fromRGB(0, 170, 255) -- สีของสี่เหลี่ยม
+Rectangle.Parent = ScreenGui
+
+-- ตั้งค่า MoneyLabel
+MoneyLabel.Name = "MoneyLabel"
+MoneyLabel.Size = UDim2.new(1, 0, 1, 0) -- ขนาดเต็มของสีเหลี่ยม
+MoneyLabel.BackgroundTransparency = 1 -- ทำให้พื้นหลังโปร่งใส
+MoneyLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- สีข้อความเป็นสีขาว
+MoneyLabel.Font = Enum.Font.SourceSans
+MoneyLabel.TextSize = 24 -- ขนาดข้อความ
+MoneyLabel.Parent = Rectangle
+
+-- ตั้งค่า CloseButton
+CloseButton.Name = "CloseButton"
+CloseButton.Size = UDim2.new(0, 100, 0, 30) -- ขนาดของปุ่ม
+CloseButton.Position = UDim2.new(0.5, -50, 0, 70) -- ตำแหน่งภายในสีเหลี่ยม
+CloseButton.Text = "ปิด" -- ข้อความบนปุ่ม
+CloseButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- สีพื้นหลังของปุ่ม
+CloseButton.Parent = Rectangle
+
+-- ฟังก์ชันสำหรับอัปเดตจำนวนเงิน
+local function updateMoney()
+    while true do
+        local player = game.Players.LocalPlayer -- ใช้ผู้เล่นที่รันสคริปต์
+        local money = player.Inventory:FindFirstChild("Money")
+        if money then
+            MoneyLabel.Text = "เงิน: " .. tostring(money.Value) -- แสดงจำนวนเงิน
+        else
+            MoneyLabel.Text = "ไม่พบข้อมูลเงิน"
+        end
+        wait(2) -- หยุด 2 วินาทีก่อนที่จะอัปเดตอีกครั้ง
+    end
+end
+
+-- ฟังก์ชันสำหรับปิด UI
+CloseButton.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy() -- ปิด UI โดยการลบ ScreenGui
+end)
+
+-- เรียกใช้ฟังก์ชันเพื่อแสดงจำนวนเงิน
+updateMoney()
+
+end)
+
 SectionFarmKaitun:NewButton("Clicked to Farmkaitun", "ButtonInfo", function()
 local hitboxMagnitude = 500 -- ระยะการตีที่ต้องการ
 
@@ -195,7 +254,7 @@ local function mainLoop()
         game:GetService("ReplicatedStorage"):WaitForChild("BankingRemotes"):WaitForChild("MainRemote"):FireServer(unpack(args))
 
         wait(1.5)
-        humanoidRootPart.CFrame = CFrame.new(-3184, 34, 3234)
+        humanoidRootPart.CFrame = CFrame.new(wd)
         wait(1.5)
         local args = {
     [1] = "Tea",
