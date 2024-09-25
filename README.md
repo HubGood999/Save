@@ -14,6 +14,9 @@ end)
 local TabFarm = Window:NewTab("main")
 local SectionFarmNormal = TabFarm:NewSection("main help")
 
+Section:main("KeybindText", "KeybindInfo", Enum.KeyCode.F, function()
+	Library:ToggleUI()
+end)
 
 
 -- แท็บ Farm Normal
