@@ -14,6 +14,8 @@ end)
 local TabFarm = Window:NewTab("main")
 local SectionFarmNormal = TabFarm:NewSection("main help")
 
+
+
 -- แท็บ Farm Normal
 local TabFarm = Window:NewTab("Farm Normal")
 local SectionFarmNormal = TabFarm:NewSection("Farm Normal")
@@ -528,71 +530,84 @@ local args = {
 
         -- ฟังก์ชันสำหรับดึงจำนวนของไอเท็มที่ระบุ
         local function getItemAmount(itemName)
-            local item = player.Inventory:FindFirstChild(itemName)
-            return item and item.Value or 0
+    local item = player.Inventory:FindFirstChild(itemName)
+    return item and item.Value or 0
+end
+
+-- ตัวแปรที่ใช้ตรวจสอบว่าได้ทำการเทเลพอร์ตแล้วหรือยัง
+local teleportedItems = {
+    noTeleported = false,
+    aTeleported = false,
+    noETeleported = false,
+    ABCD = false,
+    ABCDF = false,
+    ABCDFGH = false,
+    ABCDFG = false,
+    ABCDFGO = false,
+    ABCDFGOP = false,
+    ABCDFGOPO = false
+}
+
+-- ตารางข้อมูลสำหรับไอเท็มและพิกัดการเทเลพอร์ต
+local teleportLocations = {
+    {name = "Cabbage", amount = 60, cframe = CFrame.new(-2960, 33, 92), flag = "noTeleported"},
+    {name = "Banana", amount = 50, cframe = CFrame.new(3426, 33, -227), flag = "aTeleported"},
+    {name = "Strawberry", amount = 60, cframe = CFrame.new(3409, 35, 2087), flag = "noETeleported"},
+    {name = "Apple", amount = 60, cframe = CFrame.new(2379, 37, 3164), flag = "ABCD"},
+    {name = "Orange", amount = 60, cframe = CFrame.new(4174, 34, 3484), flag = "ABCDF"},
+    {name = "Meat", amount = 60, cframe = CFrame.new(-4784, 33, 1391), flag = "ABCDFGH"},
+    {name = "Wood", amount = 60, cframe = CFrame.new(2061, 21, -406), flag = "ABCDFG"},
+    {name = "Rice", amount = 60, cframe = CFrame.new(-2533, 13, 5159), flag = "ABCDFGO"},
+    {name = "Oil", amount = 60, cframe = CFrame.new(-5152, 33, 2044), flag = "ABCDFGOP"},
+    {name = "Cactus", amount = 60, cframe = CFrame.new(857, 35, 3338), flag = "ABCDFGOPO"}
+}
+
+-- ฟังก์ชันสำหรับขายไอเท็ม
+local function sellItem(itemName, amount)
+    local args = {itemName, tostring(amount)}
+    game:GetService("ReplicatedStorage"):WaitForChild("WorldMarket_Remotes"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+end
+
+-- ฟังก์ชันรีเซ็ตสถานะการเทเลพอร์ต
+local function resetTeleportedItems()
+    for k, _ in pairs(teleportedItems) do
+        teleportedItems[k] = false
+    end
+end
+
+-- ลูปหลัก
+while true do
+    for _, teleportData in ipairs(teleportLocations) do
+        local itemAmount = getItemAmount(teleportData.name)
+        if itemAmount >= teleportData.amount and not teleportedItems[teleportData.flag] then
+            humanoidRootPart.CFrame = teleportData.cframe -- เทเลพอร์ตไปที่พิกัดที่ระบุ
+            teleportedItems[teleportData.flag] = true -- อัปเดตสถานะการเทเลพอร์ต
         end
+        wait(0.5)
+    end
 
-        -- ตัวแปรที่ใช้ตรวจสอบว่าได้ทำการเทเลพอร์ตแล้วหรือยัง
-        local teleportedItems = {
-            noTeleported = false,
-            aTeleported = false,
-            noETeleported = false,
-            ABCD = false,
-            ABCDF = false,
-            ABCDFGH = false,
-            ABCDFG = false,
-            ABCDFGO = false,
-            ABCDFGOP = false
-        }
+    -- ตรวจสอบว่าได้เทเลพอร์ตไปพิกัดสุดท้ายแล้วหรือไม่
+    if teleportedItems["ABCDFGOPO"] then
+        -- รันคำสั่งขายไอเท็ม
+        sellItem("Watermelon", 60)
+        sellItem("Apple", 60)
+        sellItem("Strawberry", 60)
+        sellItem("Orange", 60)
+        sellItem("Wood", 60)
+        sellItem("Banana", 50)
+        sellItem("Meat", 60)
+        sellItem("Cabbage", 60)
+        sellItem("Rice", 60)
+        sellItem("Oil", 60)
+        sellItem("Cactus", 60)
+        
+        -- รีเซ็ตสถานะการเทเลพอร์ต
+        resetTeleportedItems()
+    end
 
-        -- ตารางข้อมูลสำหรับไอเท็มและพิกัดการเทเลพอร์ต
-        local teleportLocations = {
-            {name = "Cabbage", amount = 60, cframe = CFrame.new(-2960, 33, 92), flag = "noTeleported"},
-            {name = "Banana", amount = 50, cframe = CFrame.new(3426, 33, -227), flag = "aTeleported"},
-            {name = "Strawberry", amount = 60, cframe = CFrame.new(3409, 35, 2087), flag = "noETeleported"},
-            {name = "Apple", amount = 60, cframe = CFrame.new(2379, 37, 3164), flag = "ABCD"},
-            {name = "Orange", amount = 60, cframe = CFrame.new(4174, 34, 3484), flag = "ABCDF"},
-            {name = "Meat", amount = 60, cframe = CFrame.new(-4784, 33, 1391), flag = "ABCDFGH"},
-            {name = "Wood", amount = 60, cframe = CFrame.new(2061, 21, -406), flag = "ABCDFG"},
-            {name = "Rice", amount = 60, cframe = CFrame.new(-2533, 13, 5159), flag = "ABCDFGO"},
-            {name = "Oil", amount = 60, cframe = CFrame.new(857, 35, 3338), flag = "ABCDFGOP"}
-        }
+    wait(1) -- ดีเลย์เล็กน้อยเพื่อป้องกันการใช้ CPU สูงเกินไป
+end
 
-        -- ฟังก์ชันสำหรับขายไอเท็ม
-        local function sellItem(itemName, amount)
-            local args = {itemName, tostring(amount)}
-            game:GetService("ReplicatedStorage"):WaitForChild("WorldMarket_Remotes"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
-        end
-
-        -- ลูปหลัก
-        while true do
-            for _, teleportData in ipairs(teleportLocations) do
-                local itemAmount = getItemAmount(teleportData.name)
-                if itemAmount >= teleportData.amount and not teleportedItems[teleportData.flag] then
-                    humanoidRootPart.CFrame = teleportData.cframe -- เทเลพอร์ตไปที่พิกัดที่ระบุ
-                    teleportedItems[teleportData.flag] = true -- อัปเดตสถานะการเทเลพอร์ต
-                end
-                wait(0.5)
-            end
-
-            -- ตรวจสอบว่าได้เทเลพอร์ตไปพิกัดสุดท้ายแล้วหรือไม่
-            if teleportedItems["ABCDFGOP"] then
-                -- รันคำสั่งขายไอเท็ม
-                sellItem("Watermelon", 60)
-                sellItem("Apple", 60)
-                sellItem("Strawberry", 60)
-                sellItem("Orange", 60)
-                sellItem("Wood", 60)
-                sellItem("Banana", 50)
-                sellItem("Meat", 60)
-                sellItem("Cabbage", 60)
-                sellItem("Rice", 60)
-                sellItem("Oil", 60)
-                break -- ออกจากลูปเมื่อทุกเงื่อนไขถูกต้อง
-            end
-
-            wait(1) -- ดีเลย์เล็กน้อยเพื่อป้องกันการใช้ CPU สูงเกินไป
-        end
     end
 end
 
