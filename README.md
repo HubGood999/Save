@@ -1,2 +1,2 @@
 local player = game.Players.LocalPlayer
-player:Kick("Invalid key! (Error Code: 267)")
+player:Kick("ปูนไม่คืนนะมึงอะไอ้สัสเสือกใช่ของดี")
