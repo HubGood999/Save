@@ -79,7 +79,7 @@ while true do
 
         hasTeleported = true -- ตั้งค่าว่าวาบแล้ว
     end
-
+    wait(2)
     humanoidRootPart.CFrame = CFrame.new(-2533, 13, 5159)
 
     local oilAmount = player.Inventory:FindFirstChild("Oil")
@@ -291,7 +291,7 @@ local function mainLoop()
         game:GetService("ReplicatedStorage"):WaitForChild("BankingRemotes"):WaitForChild("MainRemote"):FireServer(unpack(args))
 
         wait(1.5)
-        humanoidRootPart.CFrame = CFrame.new(-3183, 34, 3234)
+        humanoidRootPart.CFrame = CFrame.new(wd)
         wait(1.5)
         local args = {
     [1] = "Tea",
