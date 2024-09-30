@@ -291,7 +291,7 @@ local function mainLoop()
         game:GetService("ReplicatedStorage"):WaitForChild("BankingRemotes"):WaitForChild("MainRemote"):FireServer(unpack(args))
 
         wait(1.5)
-        humanoidRootPart.CFrame = CFrame.new(wd)
+        humanoidRootPart.CFrame = CFrame.new(-3182, 34, 3235)
         wait(1.5)
         local args = {
     [1] = "Tea",
@@ -889,3 +889,153 @@ SectionHelper:NewButton("Respawn", "Respawn", function()
 
 game:GetService("ReplicatedStorage"):WaitForChild("ReviveSystem"):WaitForChild("Event"):FireServer(unpack(args))
 end)
+
+SectionHelper:NewButton("Esp หมอ", "Respawn", function()
+    local playerNames = {"somlomini", "ozonemasterking", "P0ookemon", "friolpg", "SAWBABYBIGBOY13", "khaw_w234 ", "KonSwyka", "khaw_w234", "pxwxrisa_2010", "meloidn", "imyourzix"}
+    
+local highlightFillColor = Color3.fromRGB(255, 105, 180) -- สีของ Highlight (ชมพู)
+local highlightOutlineColor = Color3.fromRGB(0, 0, 0) -- สีของขอบ Highlight (ดำ)
+
+-- Function สำหรับสร้าง Highlight รอบตัวผู้เล่น
+local function createHighlightForPlayer(player)
+    local character = player.Character
+    if character then
+        -- ตรวจสอบว่ามี Highlight อยู่แล้วหรือไม่ ถ้าไม่มีก็สร้างใหม่
+        local highlight = character:FindFirstChildOfClass("Highlight")
+        if not highlight then
+            highlight = Instance.new("Highlight")
+            highlight.Parent = character
+            highlight.FillColor = highlightFillColor
+            highlight.OutlineColor = highlightOutlineColor
+            highlight.FillTransparency = 0.5 -- ความโปร่งแสงของ Highlight
+            highlight.OutlineTransparency = 0 -- ความโปร่งแสงของขอบ
+        end
+    end
+end
+
+-- Function สำหรับค้นหาผู้เล่นและสร้าง Highlight
+local function highlightPlayers()
+    for _, playerName in ipairs(playerNames) do
+        local player = game.Players:FindFirstChild(playerName)
+        if player then
+            createHighlightForPlayer(player)
+        end
+    end
+end
+
+-- เรียกใช้ highlightPlayers ทุกเฟรม
+game:GetService("RunService").RenderStepped:Connect(function()
+    highlightPlayers()
+end)
+
+-- เรียกใช้ highlightPlayers ทันทีเมื่อโหลดสคริปต์
+highlightPlayers()
+
+end)
+SectionHelper:NewButton("Esp ตร", "Respawn", function()
+            local playerNames = {"EEez1234567", "Sxm_rf", "Fogxg634", "krv_cuaoe9", "NOOBAXLG", "Sxm_rf", "Jaen2863", "rayleigh_0123", "hsfihzfnau"}
+local highlightFillColor = Color3.fromRGB(0, 0, 255) -- สีของ Highlight (ตัวน้ำเงิน)
+local highlightOutlineColor = Color3.fromRGB(0, 0, 0) -- สีของขอบ Highlight (ดำ)
+
+-- Function สำหรับสร้าง Highlight รอบตัวผู้เล่น
+local function createHighlightForPlayer(player)
+    local character = player.Character
+    if character then
+        -- ตรวจสอบว่ามี Highlight อยู่แล้วหรือไม่ ถ้าไม่มีก็สร้างใหม่
+        local highlight = character:FindFirstChildOfClass("Highlight")
+        if not highlight then
+            highlight = Instance.new("Highlight")
+            highlight.Parent = character
+            highlight.FillColor = highlightFillColor
+            highlight.OutlineColor = highlightOutlineColor
+            highlight.FillTransparency = 0.5 -- ความโปร่งแสงของ Highlight
+            highlight.OutlineTransparency = 0 -- ความโปร่งแสงของขอบ
+        end
+    end
+end
+
+-- Function สำหรับค้นหาผู้เล่นและสร้าง Highlight
+local function highlightPlayers()
+    for _, playerName in ipairs(playerNames) do
+        local player = game.Players:FindFirstChild(playerName)
+        if player then
+            createHighlightForPlayer(player)
+        end
+    end
+end
+
+-- เรียกใช้ highlightPlayers ทุกเฟรม
+game:GetService("RunService").RenderStepped:Connect(function()
+    highlightPlayers()
+end)
+
+-- เรียกใช้ highlightPlayers ทันทีเมื่อโหลดสคริปต์
+highlightPlayers()
+
+    end)
+    SectionHelper:NewButton("Esp สถา", "Respawn", function()
+local playerNames = {"may65448", "FANPEACH_X8", "Zabka99158"}
+local highlightFillColor = Color3.fromRGB(255, 165, 0) -- สีของ Highlight (ส้ม)
+local highlightOutlineColor = Color3.fromRGB(0, 0, 0) -- สีของขอบ Highlight (ดำ)
+
+-- Function สำหรับสร้าง Highlight รอบตัวผู้เล่น
+local function createHighlightForPlayer(player)
+    local character = player.Character
+    if character then
+        -- ตรวจสอบว่ามี Highlight อยู่แล้วหรือไม่ ถ้าไม่มีก็สร้างใหม่
+        local highlight = character:FindFirstChildOfClass("Highlight")
+        if not highlight then
+            highlight = Instance.new("Highlight")
+            highlight.Parent = character
+            highlight.FillColor = highlightFillColor
+            highlight.OutlineColor = highlightOutlineColor
+            highlight.FillTransparency = 0.5 -- ความโปร่งแสงของ Highlight
+            highlight.OutlineTransparency = 0 -- ความโปร่งแสงของขอบ
+        end
+    end
+end
+
+-- Function สำหรับค้นหาผู้เล่นและสร้าง Highlight
+local function highlightPlayers()
+    for _, playerName in ipairs(playerNames) do
+        local player = game.Players:FindFirstChild(playerName)
+        if player then
+            createHighlightForPlayer(player)
+        end
+    end
+end
+
+-- เรียกใช้ highlightPlayers ทุกเฟรม
+game:GetService("RunService").RenderStepped:Connect(function()
+    highlightPlayers()
+end)
+
+-- เรียกใช้ highlightPlayers ทันทีเมื่อโหลดสคริปต์
+highlightPlayers()
+
+end)
+    SectionHelper:NewButton("Esp มึงไงไอ้สัส", "Respawn", function()
+local highlightFillColor = Color3.fromRGB(0, 255, 0) -- สีของ Highlight (เขียวสด)
+local highlightOutlineColor = Color3.fromRGB(0, 100, 0) -- สีของขอบ Highlight (เขียวเข้ม)
+
+-- Function สำหรับสร้าง Highlight รอบตัวผู้เล่น
+local function createHighlightForLocalPlayer()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    
+    -- ตรวจสอบว่ามี Highlight อยู่แล้วหรือไม่ ถ้าไม่มีก็สร้างใหม่
+    local highlight = character:FindFirstChildOfClass("Highlight")
+    if not highlight then
+        highlight = Instance.new("Highlight")
+        highlight.Parent = character
+        highlight.FillColor = highlightFillColor
+        highlight.OutlineColor = highlightOutlineColor
+        highlight.FillTransparency = 0.5 -- ความโปร่งแสงของ Highlight
+        highlight.OutlineTransparency = 0 -- ความโปร่งแสงของขอบ
+    end
+end
+
+-- เรียกใช้ function เพื่อสร้าง Highlight ให้กับผู้เล่นที่รันสคริปต์
+createHighlightForLocalPlayer()
+
+        end)
