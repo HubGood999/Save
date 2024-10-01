@@ -59,7 +59,7 @@ while true do
     -- วาร์ปไปยังพิกัดที่สามและขายไอเทม
     teleportToPosition(Vector3.new(-2457, 233, 1591))
     wait(0.25)
-    sellItem("Chest_Box", 3)
+    sellItem("Chest_Box", 15)
 
     wait(5) -- รอ 10 วินาทีก่อนทำซ้ำอีกครั้ง
 end
