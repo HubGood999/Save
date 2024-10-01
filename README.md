@@ -16,7 +16,7 @@ local TabFarm = Window:NewTab("main")
 local SectionFarmNormal = TabFarm:NewSection("main help")
 
 SectionFarmNormal:NewButton("fame กล่อง", "ButtonInfo", function()
-    local player = game.Players.LocalPlayer
+  local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
@@ -25,25 +25,43 @@ local function teleportToPosition(position)
     humanoidRootPart.CFrame = CFrame.new(position)
 end
 
--- เริ่มลูป
-while true do
-    -- วาร์ปไปยังพิกัดแรก
-    teleportToPosition(Vector3.new(-2445, -63, 1034))
-    wait(0.25) -- รอเวลา 0.25 วินาทีก่อนวาร์ปไปที่ต่อไป
+-- ฟังก์ชันซื้อของจากร้านค้า
+local function buyItem(itemName, quantity)
+    local args = {
+        [1] = itemName,
+        [2] = quantity
+    }
+    game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Shop"):FireServer(unpack(args))
+end
 
-    -- วาร์ปไปยังพิกัดที่สอง
-    teleportToPosition(Vector3.new(-2457, 233, 1591))
-    wait(0.25) -- รอเวลา 0.25 วินาทีก่อนทำการขายไอเทม
-
-    -- เรียกใช้ฟังก์ชันขายไอเทม
+-- ฟังก์ชันขายไอเทม
+local function sellItem(itemName, quantity)
     local args = {
         [1] = "Sell",
-        [2] = "Chest_Box",
-        [3] = "3"
+        [2] = itemName,
+        [3] = tostring(quantity)
     }
     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Economy"):FireServer(unpack(args))
+end
 
-    wait(10) -- รอ 10 วินาทีก่อนทำซ้ำอีกครั้ง
+-- เริ่มลูป
+while true do
+    -- วาร์ปไปยังพิกัดแรกและซื้อ Bread, Water
+    teleportToPosition(Vector3.new(-3183, 34, 3234))
+    wait(0.25)
+    buyItem("Bread", 10)
+    buyItem("Water", 10)
+
+    -- วาร์ปไปยังพิกัดที่สอง
+    teleportToPosition(Vector3.new(-2445, -63, 1034))
+    wait(0.25)
+
+    -- วาร์ปไปยังพิกัดที่สามและขายไอเทม
+    teleportToPosition(Vector3.new(-2457, 233, 1591))
+    wait(0.25)
+    sellItem("Chest_Box", 3)
+
+    wait(5) -- รอ 10 วินาทีก่อนทำซ้ำอีกครั้ง
 end
 
 end)
