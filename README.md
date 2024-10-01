@@ -61,7 +61,7 @@ while true do
     wait(0.25)
     sellItem("Chest_Box", 3)
 
-    wait(5) -- รอ 10 วินาทีก่อนทำซ้ำอีกครั้ง
+    wait(2) -- รอ 10 วินาทีก่อนทำซ้ำอีกครั้ง
 end
 
 end)
