@@ -15,7 +15,38 @@ end)
 local TabFarm = Window:NewTab("main")
 local SectionFarmNormal = TabFarm:NewSection("main help")
 
+SectionFarmNormal:NewButton("fame กล่อง", "ButtonInfo", function()
+    local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
+-- ฟังก์ชันวาร์ปไปยังตำแหน่ง
+local function teleportToPosition(position)
+    humanoidRootPart.CFrame = CFrame.new(position)
+end
+
+-- เริ่มลูป
+while true do
+    -- วาร์ปไปยังพิกัดแรก
+    teleportToPosition(Vector3.new(-2445, -63, 1034))
+    wait(0.25) -- รอเวลา 0.25 วินาทีก่อนวาร์ปไปที่ต่อไป
+
+    -- วาร์ปไปยังพิกัดที่สอง
+    teleportToPosition(Vector3.new(-2457, 233, 1591))
+    wait(0.25) -- รอเวลา 0.25 วินาทีก่อนทำการขายไอเทม
+
+    -- เรียกใช้ฟังก์ชันขายไอเทม
+    local args = {
+        [1] = "Sell",
+        [2] = "Chest_Box",
+        [3] = "3"
+    }
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Economy"):FireServer(unpack(args))
+
+    wait(10) -- รอ 10 วินาทีก่อนทำซ้ำอีกครั้ง
+end
+
+end)
 
 -- แท็บ Farm Normal
 local TabFarm = Window:NewTab("Farm Normal")
