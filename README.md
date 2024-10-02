@@ -983,7 +983,7 @@ highlightPlayers()
 
 end)
 SectionHelper:NewButton("Esp ตร", "Respawn", function()
-            local playerNames = {"EEez1234567", "Sxm_rf", "Sxm_rf", "krv_cuaoe9", "NOOBAXLGO", "Sxm_rf", "GGG7777666", "Fogxg634", "Jaen2863", "rayleigh_0123"}
+            local playerNames = {"EEez1234567", "Sxm_rf", "Sxm_rf", "krv_cuaoe9", "NOOBAXLGO", "Sxm_rf", "GGG7777666", "xXGT0TDXx", "Fogxg634", "Jaen2863", "rayleigh_0123"}
 local highlightFillColor = Color3.fromRGB(0, 0, 255) -- สีของ Highlight (ตัวน้ำเงิน)
 local highlightOutlineColor = Color3.fromRGB(0, 0, 0) -- สีของขอบ Highlight (ดำ)
 
