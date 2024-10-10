@@ -71,7 +71,7 @@ local TabFarm = Window:NewTab("Farm Normal")
 local SectionFarmNormal = TabFarm:NewSection("Farm Normal")
 
 SectionFarmNormal:NewButton("Farm Oil", "Farm Oil", function()
-    local hitboxMagnitude = 500 -- ระยะการตีที่ต้องการ
+    local hitboxMagnitude = 2000 -- ระยะการตีที่ต้องการ
 local hasTeleported = false -- ตัวแปรเพื่อควบคุมการวาบ
 
 -- ฟังก์ชันในการขยายระยะการตี
@@ -104,7 +104,7 @@ while true do
     -- เช็คว่าต้องวาบหรือไม่
     if not hasTeleported then
         humanoidRootPart.CFrame = CFrame.new(-3184, 34, 3234)
-        wait(2) -- รอ 2 วินาทีที่ตำแหน่งนี้
+        wait(3) -- รอ 2 วินาทีที่ตำแหน่งนี้
 
         -- ทำการซื้อสินค้า
         local items = {
@@ -129,7 +129,7 @@ while true do
 
         hasTeleported = true -- ตั้งค่าว่าวาบแล้ว
     end
-    wait(3.5)
+    wait(4.5)
     humanoidRootPart.CFrame = CFrame.new(-2533, 13, 5159)
 
     local oilAmount = player.Inventory:FindFirstChild("Oil")
