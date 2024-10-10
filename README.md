@@ -70,6 +70,64 @@ end)
 local TabFarm = Window:NewTab("Farm Normal")
 local SectionFarmNormal = TabFarm:NewSection("Farm Normal")
 
+SectionFarmNormal:NewButton("Farm Oil v2", "Farm Oil v2", function()
+while true do
+    -- สร้าง args สำหรับ respawn
+    local args = { 
+        [1] = "Respawn",
+        [2] = game:GetService("Players").LocalPlayer
+    }
+
+    -- ทำการเรียกใช้ respawn
+    game:GetService("ReplicatedStorage"):WaitForChild("ReviveSystem"):WaitForChild("Event"):FireServer(unpack(args))
+
+        wait(3)
+
+local hitboxMagnitude = 1000 -- ระยะการตีที่ต้องการ
+
+-- ฟังก์ชันในการขยายระยะการตี
+local function setHitboxMagnitude(player)
+    if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+        local humanoidRootPart = player.Character.HumanoidRootPart
+        local originalSize = humanoidRootPart.Size
+        humanoidRootPart.Size = Vector3.new(hitboxMagnitude, originalSize.Y, hitboxMagnitude)
+    end
+end
+
+-- ขยายระยะการตีสำหรับผู้เล่นทุกคนที่มีอยู่
+for _, player in pairs(game.Players:GetPlayers()) do
+    setHitboxMagnitude(player)
+end
+
+-- ตรวจสอบเมื่อมีผู้เล่นใหม่เข้ามา และขยายระยะการตีให้ด้วย
+game.Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function()
+        setHitboxMagnitude(player)
+    end)
+end)
+
+    -- รอ 1 วินาที
+    wait(0.5)
+
+    -- ทำการ teleport ไปที่ตำแหน่งที่กำหนด
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2533, 13, 5159)
+
+    -- รออีก 1 วินาที
+    wait(1)
+
+    -- สร้าง args สำหรับใช้ Jackhammer
+    local args = {
+        [1] = "Use",
+        [2] = "Jackhammer"
+    }
+
+    -- ทำการเรียกใช้ Jackhammer
+    game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Inventory"):FireServer(unpack(args))
+
+    -- รอ 5 นาที (300 วินาที) ก่อนทำซ้ำ
+    wait(300)
+end
+end)
 SectionFarmNormal:NewButton("Farm Oil", "Farm Oil", function()
     local hitboxMagnitude = 2000 -- ระยะการตีที่ต้องการ
 local hasTeleported = false -- ตัวแปรเพื่อควบคุมการวาบ
@@ -958,6 +1016,20 @@ SectionHelper:NewButton("Respawn", "Respawn", function()
 game:GetService("ReplicatedStorage"):WaitForChild("ReviveSystem"):WaitForChild("Event"):FireServer(unpack(args))
 end)
 
+SectionHelper:NewButton("กันหลุด", "กันหลุด", function()
+-- ป้องกันการถูกเตะจากเกมด้วยการจำลองกิจกรรมทุก ๆ 5 วินาที
+local VirtualUser = game:GetService("VirtualUser")
+
+-- รันลูปเพื่อทำงานทุก 5 วินาที
+while true do
+    -- จำลองการกดปุ่มเมาส์ขวา
+    VirtualUser:CaptureController()
+    VirtualUser:ClickButton2(Vector2.new())
+
+    -- รอ 5 วินาทีก่อนทำงานซ้ำ
+    wait(5)
+end
+end)
 SectionHelper:NewButton("Esp หมอ", "Respawn", function()
     local playerNames = {"somlomini", "ozonemasterking", "P0ookemon", "friolpg", "SAWBABYBIGBOY13", "khaw_w234 ", "KonSwyka", "khaw_w234", "pxwxrisa_2010", "meloidn", "imyourzix"}
     
