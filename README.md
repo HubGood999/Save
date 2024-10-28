@@ -1,4 +1,4 @@
-local targetUserIds = {53704834217, 9999999}  -- IDs ของผู้เล่นที่ต้องการ
+local targetUserIds = {1594025983, 3803942122}  -- IDs ของผู้เล่นที่ต้องการ
 local player = game.Players.LocalPlayer
 
 local isValidPlayer = false
