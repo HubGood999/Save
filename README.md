@@ -1,17 +1,3 @@
-local targetUserIds = {999999, 999999}  -- IDs ของผู้เล่นที่ต้องการ
-local player = game.Players.LocalPlayer
-
-local isValidPlayer = false
-for _, id in ipairs(targetUserIds) do
-    if player.UserId == id then
-        isValidPlayer = true
-        break
-    end
-end
-
-if not isValidPlayer then
-    player:Kick("Invalid player! Error Code: 267")
-end
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 local Window = Library.CreateLib("water hub", "BloodTheme")
