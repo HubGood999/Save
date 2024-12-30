@@ -81,7 +81,7 @@ while true do
     -- ทำการเรียกใช้ respawn
     game:GetService("ReplicatedStorage"):WaitForChild("ReviveSystem"):WaitForChild("Event"):FireServer(unpack(args))
 
-        wait(3)
+        wait(3)SD
 
 local hitboxMagnitude = 1000 -- ระยะการตีที่ต้องการ
 
